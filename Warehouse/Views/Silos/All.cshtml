@@ -1,0 +1,19 @@
+﻿@model List<Warehouse.Models.Silos.AllSilosViewModel>
+
+@{
+    ViewBag.Title = "All Silos";
+ }
+
+<div class="row">
+    @foreach (var silo in Model)
+    {
+        <div class="col-md-6">
+            <h2>@silo.Number . @silo.Name</h2>
+            <h3>Capacity left: @silo.CapacityLeft</h3>
+            <h3>Maximum Capacity: @silo.MaxCapacity</h3>
+            <p><a class="btn btn-success" href="/Silos/AddCommodity/@silo.Id">Add Commodity</a>
+            <a class="btn btn-warning" href="/Silos/RemoveCommodity/@silo.Id">Remove Commodity</a>
+            <a class="btn btn-info" href="/Silos/AllOperations/@silo.Id">All Operations</a></p>
+        </div>
+    }
+</div>

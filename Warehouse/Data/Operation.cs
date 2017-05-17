@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Warehouse.Data
 {
@@ -9,13 +6,19 @@ namespace Warehouse.Data
     {
         public Operation()
         {
-            this.actionDate = DateTime.Now;
+            this.ActionDate = DateTime.Now;
         }
 
-        public DateTime actionDate;
-        public double amountBeforeAction;
-        public string operation;
-        public double actionAmount;
-        public double amountAfterAction;
+        public int Id { get; set; }
+
+        public DateTime ActionDate { get; set; }
+
+        public double AmountBeforeAction { get; set; }
+
+        public string OperationName { get; set; }
+
+        public double ActionAmount { get; set; }
+
+        public double AmountAfterAction { get; set; }
     }
 }

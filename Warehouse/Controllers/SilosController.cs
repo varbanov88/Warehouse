@@ -43,28 +43,103 @@ namespace YaraTask.Controllers
 
         [Authorize]
         [HttpGet]
-        public ActionResult AddCommodity()
+        public ActionResult AddCommodity(int id)
         {
-            return View();
+            var db = new WarehouseDbContext();
+
+            var silo = db.Silos
+                .Where(s => s.Id == id)
+                .Select(s => new SiloViewModel
+                {
+                    Number = s.SiloNumber,
+                    Name = s.Name,
+                    CurrentLoad = s.CurrentLoad,
+                    MaxCapacity = s.MaxCapacity,
+                    CapacityLeft = s.MaxCapacity - s.CurrentLoad,
+                    Commodity = new Commodity() 
+                })
+                .FirstOrDefault();
+
+            if (silo == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(silo);
         }
 
         [Authorize]
         [HttpPost]
-        public ActionResult AddCommodity(AddCommodityModel model)
+        public ActionResult AddCommodity(SiloViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var commodity = new Commodity
                 {
-                    Name = model.Name,
-                    Amount = model.Amount
+                    Name = model.Commodity.Name,
+                    Amount = model.Commodity.Amount
                 };
 
                 var db = new WarehouseDbContext();
-                
+
+                var silo = db.Silos.Find(model.Id);
+
+                try
+                {
+                    silo.AddCommodity(commodity);
+                    db.SaveChanges();
+
+                    return RedirectToAction("All", "Silos");
+                }
+
+                catch (Exception)
+                {
+                    return View(model);
+                }
             }
 
             return View(model);
+        }
+
+        public ActionResult All()
+        {
+            var db = new WarehouseDbContext();
+
+            var silos = db.Silos
+                .OrderBy(s => s.SiloNumber)
+                .Select(s => new AllSilosViewModel
+                {
+                    Id = s.Id,
+                    Number = s.SiloNumber,
+                    Name = s.Name,
+                    MaxCapacity = s.MaxCapacity,
+                    CapacityLeft = s.MaxCapacity - s.CurrentLoad
+                })
+                .ToList();
+
+            return View(silos);
+        }
+
+        public ActionResult AllOperations(int id)
+        {
+            var db = new WarehouseDbContext();
+
+            var pasteQuery = db.Operations.AsQueryable();
+
+            var actions = pasteQuery
+                .OrderBy(a => a.Id)
+                .Select(a => new AllOperationsModel
+                {
+                    Id = a.Id,
+                    ActionDate = a.ActionDate,
+                    AmountBeforeAction = a.AmountBeforeAction,
+                    OperationName = a.OperationName,
+                    ActionAmount = a.ActionAmount,
+                    AmountAfterAction = a.AmountAfterAction
+                })
+                .ToList();
+
+            return View(actions);
         }
     }
 }

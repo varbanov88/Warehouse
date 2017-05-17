@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 using Warehouse.Data;
 using Warehouse.Models;
 
@@ -16,15 +13,17 @@ namespace YaraTask.Data
 
         private double maxCapacity;
 
-        private double currentLoad;
-
         private int siloNumber;
 
-        private List<Operation> operations;
+
+        public Silo()
+        {
+            this.Operations = new List<Operation>();
+        }
 
         public Silo(string name, double maxCapacity, int siloNumber)
         {
-            this.operations = new List<Operation>();
+            this.Operations = new List<Operation>();
             this.Name = name;
             this.MaxCapacity = maxCapacity;
             this.SiloNumber = siloNumber;
@@ -48,6 +47,8 @@ namespace YaraTask.Data
                 this.name = value;
             }
         }
+
+        public double CurrentLoad { get; set; }
 
         public double MaxCapacity
         {
@@ -83,13 +84,15 @@ namespace YaraTask.Data
             }
         }
 
+        public List<Operation> Operations { get; set; }
+
         public string SiloCreatorId { get; set; } 
 
         public virtual User Creator { get; set; }
 
         public void AddCommodity(Commodity commodity)
         {
-            if (commodity.Amount + this.currentLoad > this.maxCapacity)
+            if (commodity.Amount + this.CurrentLoad > this.maxCapacity)
             {
                 throw new ArgumentException("Capacity not enough");
             }
@@ -98,16 +101,16 @@ namespace YaraTask.Data
             {
                 var operation = new Operation
                 {
-                    actionAmount = commodity.Amount,
-                    amountAfterAction = this.currentLoad + commodity.Amount,
-                    amountBeforeAction = this.currentLoad,
-                    operation = "Add commodity"
+                    ActionAmount = commodity.Amount,
+                    AmountAfterAction = this.CurrentLoad + commodity.Amount,
+                    AmountBeforeAction = this.CurrentLoad,
+                    OperationName = "Add commodity"
                 };
 
-                this.operations.Add(operation);
+                this.Operations.Add(operation);
 
                 this.commodity = commodity;
-                this.currentLoad += commodity.Amount;
+                this.CurrentLoad += commodity.Amount;
             }
         }
     }

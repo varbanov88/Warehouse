@@ -1,0 +1,33 @@
+﻿@model List<Warehouse.Models.Silos.AllOperationsModel>
+
+@{
+    ViewBag.Title = "All Operations";
+}
+
+<div class="row">
+    <table class="table table-responsive table-bordered table-hover">
+        <tr>
+            <th>Id</th>
+            <th style="word-wrap: break-word;min-width: 80px;max-width: 80px;">Date</th>
+            <th style="word-wrap: break-word;min-width: 80px;max-width: 80px;">Amount before the operation</th>
+            <th style="word-wrap: break-word;min-width: 80px;max-width: 80px;">Operation name</th>
+            <th style="word-wrap: break-word;min-width: 80px;max-width: 80px;">Operation amount</th>
+            <th style="word-wrap: break-word;min-width: 80px;max-width: 80px;">Total amount after the operation</th>
+        </tr>
+        @foreach (var action in Model)
+            {
+            <tr>
+                <td>@action.Id</td>
+                <td>@action.ActionDate</td>
+                <td>@action.AmountBeforeAction</td>
+                <td>@action.OperationName</td>
+                <td>@action.ActionAmount</td>
+                <td>@action.AmountAfterAction</td>
+            </tr>
+        }
+    </table>
+</div>
+
+<a href="/Silos/All" class="btn btn-danger"><< Back</a>
+
+
