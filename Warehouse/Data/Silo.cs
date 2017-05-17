@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using Warehouse.Data;
 using Warehouse.Models;
 
 namespace YaraTask.Data
@@ -11,7 +12,7 @@ namespace YaraTask.Data
     {
         private string name;
 
-        private string commodity;
+        private Commodity commodity;
 
         private double maxCapacity;
 
@@ -19,8 +20,11 @@ namespace YaraTask.Data
 
         private int siloNumber;
 
+        private List<Operation> operations;
+
         public Silo(string name, double maxCapacity, int siloNumber)
         {
+            this.operations = new List<Operation>();
             this.Name = name;
             this.MaxCapacity = maxCapacity;
             this.SiloNumber = siloNumber;
@@ -82,5 +86,29 @@ namespace YaraTask.Data
         public string SiloCreatorId { get; set; } 
 
         public virtual User Creator { get; set; }
+
+        public void AddCommodity(Commodity commodity)
+        {
+            if (commodity.Amount + this.currentLoad > this.maxCapacity)
+            {
+                throw new ArgumentException("Capacity not enough");
+            }
+
+            else
+            {
+                var operation = new Operation
+                {
+                    actionAmount = commodity.Amount,
+                    amountAfterAction = this.currentLoad + commodity.Amount,
+                    amountBeforeAction = this.currentLoad,
+                    operation = "Add commodity"
+                };
+
+                this.operations.Add(operation);
+
+                this.commodity = commodity;
+                this.currentLoad += commodity.Amount;
+            }
+        }
     }
 }
