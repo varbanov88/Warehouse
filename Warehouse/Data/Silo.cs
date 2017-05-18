@@ -104,13 +104,44 @@ namespace YaraTask.Data
                     ActionAmount = commodity.Amount,
                     AmountAfterAction = this.CurrentLoad + commodity.Amount,
                     AmountBeforeAction = this.CurrentLoad,
-                    OperationName = "Add commodity"
+                    OperationName = "Import commodity"
                 };
 
                 this.Operations.Add(operation);
 
-                this.commodity = commodity;
+                if (this.commodity == null)
+                {
+                    this.commodity = commodity;
+                }
+
                 this.CurrentLoad += commodity.Amount;
+            }
+        }
+
+        public void ExportCommodity(Commodity commodity)
+        {
+            if (this.CurrentLoad - commodity.Amount < 0)
+            {
+                throw new ArgumentException("You cannot export that much");
+            }
+
+            else
+            {
+                var operation = new Operation
+                {
+                    ActionAmount = commodity.Amount,
+                    AmountAfterAction = this.CurrentLoad - commodity.Amount,
+                    AmountBeforeAction = this.CurrentLoad,
+                    OperationName = "Export commodity"
+                };
+
+                this.Operations.Add(operation);
+                this.CurrentLoad -= commodity.Amount;
+
+                if (this.CurrentLoad == 0)
+                {
+                    this.commodity = null;
+                }
             }
         }
     }

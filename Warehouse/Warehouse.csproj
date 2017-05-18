@@ -274,6 +274,7 @@
     <Content Include="Views\Silos\All.cshtml" />
     <Content Include="Views\Silos\AddCommodity.cshtml" />
     <Content Include="Views\Silos\AllOperations.cshtml" />
+    <Content Include="Views\Silos\ExportCommodity.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

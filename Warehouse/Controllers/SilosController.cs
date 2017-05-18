@@ -92,14 +92,75 @@ namespace YaraTask.Controllers
                     return RedirectToAction("All", "Silos");
                 }
 
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    return View(model);
+                    return Json(new { status = "error", message = ex.Message});
                 }
             }
 
             return View(model);
         }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult ExportCommodity(int id)
+        {
+            var db = new WarehouseDbContext();
+
+            var silo = db.Silos
+                .Where(s => s.Id == id)
+                .Select(s => new SiloViewModel
+                {
+                    Number = s.SiloNumber,
+                    Name = s.Name,
+                    CurrentLoad = s.CurrentLoad,
+                    MaxCapacity = s.MaxCapacity,
+                    CapacityLeft = s.MaxCapacity - s.CurrentLoad,
+                    Commodity = new Commodity()
+                })
+                .FirstOrDefault();
+
+            if (silo == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(silo);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult ExportCommodity(SiloViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var commodity = new Commodity
+                {
+                    Name = model.Commodity.Name,
+                    Amount = model.Commodity.Amount
+                };
+
+                var db = new WarehouseDbContext();
+
+                var silo = db.Silos.Find(model.Id);
+
+                try
+                {
+                    silo.ExportCommodity(commodity);
+                    db.SaveChanges();
+
+                    return RedirectToAction("All", "Silos");
+                }
+
+                catch (Exception ex)
+                {
+                    return Json(new { status = "error", message = ex.Message });
+                }
+            }
+
+            return View(model);
+        }
+
 
         public ActionResult All()
         {

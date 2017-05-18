@@ -1,0 +1,33 @@
+﻿@model Warehouse.Models.Silos.SiloViewModel
+
+@{
+    ViewBag.Title = "Export Commodity";
+}
+
+@using (Html.BeginForm("ExportCommodity", "Silos", FormMethod.Post))
+{
+    <div class="row">
+        <h2>@Model.Number . @Model.Name</h2>
+        <h3>Current Load Level: @Model.CurrentLoad</h3>
+        <h3>Maximum Capacity: @Model.MaxCapacity</h3>
+        <h3>Amount to reach capacit: @Model.CapacityLeft</h3>
+    </div>
+
+    <div class="container">
+        <div class="form-group">
+            @Html.LabelFor(m => m.Commodity.Name, new { @class = "col-md-2 control-label" })
+            @Html.TextBoxFor(m => m.Commodity.Name, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Commodity.Amount, new { @class = "col-md-2 control-label" })
+            @Html.TextBoxFor(m => m.Commodity.Amount, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="container">
+        <a href="/Silos/All" class="btn btn-danger"><< Back</a>
+        <input type="submit" value="Export from Silo" class="btn btn-success" />
+    </div>
+
+}
