@@ -94,7 +94,8 @@ namespace YaraTask.Data
         {
             if (commodity.Amount + this.CurrentLoad > this.maxCapacity)
             {
-                throw new ArgumentException("Capacity not enough");
+                var availableSpace = this.maxCapacity - this.CurrentLoad;
+                throw new ArgumentException($"Capacity not enough. You can import up to {availableSpace} tones");
             }
 
             else

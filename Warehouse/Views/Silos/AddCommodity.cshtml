@@ -13,6 +13,7 @@
         <h3>Amount to reach capacity: @Model.CapacityLeft</h3>
     </div>
 
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="container">
         <div class="form-group">
             @Html.LabelFor(m => m.Commodity.Name, new { @class = "col-md-2 control-label" })
@@ -22,6 +23,7 @@
         <div class="form-group">
             @Html.LabelFor(m => m.Commodity.Amount, new { @class = "col-md-2 control-label" })
             @Html.TextBoxFor(m => m.Commodity.Amount, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Commodity.Amount, "", new { @class = "text-danger" })
         </div>
     </div>
 

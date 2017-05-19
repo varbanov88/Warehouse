@@ -94,7 +94,9 @@ namespace YaraTask.Controllers
 
                 catch (Exception ex)
                 {
-                    return Json(new { status = "error", message = ex.Message});
+                    //to do: fix exception model bug
+                    ModelState.AddModelError("", $"{ex.Message}");
+                    return View(model);
                 }
             }
 
