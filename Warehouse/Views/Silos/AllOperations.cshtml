@@ -4,10 +4,11 @@
     ViewBag.Title = "All Operations";
 }
 
+<h2 class="text-center" mt-60>All Operations - Page @ViewBag.CurrentPage</h2>
+
 <div class="row">
     <table class="table table-striped table-hover">
         <tr>
-            <th>Id</th>
             <th style="word-wrap: break-word;min-width: 80px;max-width: 80px;">Date</th>
             <th style="word-wrap: break-word;min-width: 80px;max-width: 80px;">Amount before the operation</th>
             <th style="word-wrap: break-word;min-width: 80px;max-width: 80px;">Operation name</th>
@@ -17,15 +18,31 @@
         @foreach (var action in Model)
             {
             <tr>
-                <td>@action.Id</td>
                 <td>@action.ActionDate</td>
                 <td>@action.AmountBeforeAction</td>
                 <td>@action.OperationName</td>
                 <td>@action.ActionAmount</td>
                 <td>@action.AmountAfterAction</td>
             </tr>
-        }
+            }
     </table>
+</div>
+
+<div class="text-center">
+    <ul class="pagination">
+        @for (int i = 1; i <= @ViewBag.TotalPages; i++)
+        {
+            if (@i == @ViewBag.CurrentPage)
+            {
+                <li class="active"><a href="/Silos/AllOperations/@ViewBag.CurrentSilo?page=@i">@i</a></li>
+            }
+            else
+            {
+                <li><a href="/Silos/AllOperations/@ViewBag.CurrentSilo?page=@i">@i</a></li>
+            }
+        }
+    </ul>
+
 </div>
 
 <a href="/Silos/All" class="btn btn-danger"><< Back</a>

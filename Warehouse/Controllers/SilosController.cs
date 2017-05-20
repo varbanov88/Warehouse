@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Warehouse.Data;
 using Warehouse.Models.Silos;
@@ -56,7 +54,7 @@ namespace YaraTask.Controllers
                     CurrentLoad = s.CurrentLoad,
                     MaxCapacity = s.MaxCapacity,
                     CapacityLeft = s.MaxCapacity - s.CurrentLoad,
-                    Commodity = new Commodity() 
+                    Commodity = new Commodity()
                 })
                 .FirstOrDefault();
 
@@ -94,9 +92,22 @@ namespace YaraTask.Controllers
 
                 catch (Exception ex)
                 {
-                    //to do: fix exception model bug
                     ModelState.AddModelError("", $"{ex.Message}");
-                    return View(model);
+
+                    var siloOther = db.Silos
+                                    .Where(s => s.Id == model.Id)
+                                    .Select(s => new SiloViewModel
+                                    {
+                                        Number = s.SiloNumber,
+                                        Name = s.Name,
+                                        CurrentLoad = s.CurrentLoad,
+                                        MaxCapacity = s.MaxCapacity,
+                                        CapacityLeft = s.MaxCapacity - s.CurrentLoad,
+                                        Commodity = new Commodity()
+                                    })
+                                    .FirstOrDefault();
+
+                    return View(siloOther);
                 }
             }
 
@@ -156,7 +167,22 @@ namespace YaraTask.Controllers
 
                 catch (Exception ex)
                 {
-                    return Json(new { status = "error", message = ex.Message });
+                    ModelState.AddModelError("", $"{ex.Message}");
+
+                    var siloOther = db.Silos
+                                    .Where(s => s.Id == model.Id)
+                                    .Select(s => new SiloViewModel
+                                    {
+                                        Number = s.SiloNumber,
+                                        Name = s.Name,
+                                        CurrentLoad = s.CurrentLoad,
+                                        MaxCapacity = s.MaxCapacity,
+                                        CapacityLeft = s.MaxCapacity - s.CurrentLoad,
+                                        Commodity = new Commodity()
+                                    })
+                                    .FirstOrDefault();
+
+                    return View(siloOther);
                 }
             }
 
@@ -183,14 +209,18 @@ namespace YaraTask.Controllers
             return View(silos);
         }
 
-        public ActionResult AllOperations(int id)
+        public ActionResult AllOperations(int id, int page = 1)
         {
+            var pageSize = 12;
+
+            double size = 12;
+
             var db = new WarehouseDbContext();
 
             var pasteQuery = db.Operations.AsQueryable();
 
-            var actions = pasteQuery
-                .OrderBy(a => a.Id)
+            var totalActions = pasteQuery
+                .Where(a => a.SiloId == id)
                 .Select(a => new AllOperationsModel
                 {
                     Id = a.Id,
@@ -198,9 +228,33 @@ namespace YaraTask.Controllers
                     AmountBeforeAction = a.AmountBeforeAction,
                     OperationName = a.OperationName,
                     ActionAmount = a.ActionAmount,
-                    AmountAfterAction = a.AmountAfterAction
+                    AmountAfterAction = a.AmountAfterAction,
+                    SiloId = a.SiloId
                 })
                 .ToList();
+
+            var actions = pasteQuery
+                .Where(a => a.SiloId == id)
+                .OrderByDescending(a => a.ActionDate)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .Select(a => new AllOperationsModel
+                {
+                    Id = a.Id,
+                    ActionDate = a.ActionDate,
+                    AmountBeforeAction = a.AmountBeforeAction,
+                    OperationName = a.OperationName,
+                    ActionAmount = a.ActionAmount,
+                    AmountAfterAction = a.AmountAfterAction,
+                    SiloId = a.SiloId
+                })
+                .ToList();
+
+            var totalPages = Math.Ceiling(totalActions.Count / size);
+
+            ViewBag.CurrentPage = page;
+            ViewBag.CurrentSilo = id;
+            ViewBag.TotalPages = totalPages;
 
             return View(actions);
         }

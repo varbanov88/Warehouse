@@ -10,7 +10,7 @@ namespace Warehouse.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            AutomaticMigrationDataLossAllowed = false;
+            AutomaticMigrationDataLossAllowed = true;
 
             ContextKey = "Warehouse.Data.WarehouseDbContext";
         }

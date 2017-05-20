@@ -224,6 +224,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Images\GrainStorage.jpg" />
     <Content Include="Images\LiquidLimeTanks.jpg" />
+    <Content Include="Images\ohio.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">

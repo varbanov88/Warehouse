@@ -15,5 +15,7 @@ namespace Warehouse.Models.Silos
         public double ActionAmount { get; set; }
 
         public double AmountAfterAction { get; set; }
+
+        public int SiloId { get; set; }
     }
 }

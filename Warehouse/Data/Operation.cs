@@ -1,4 +1,5 @@
 ﻿using System;
+using YaraTask.Data;
 
 namespace Warehouse.Data
 {
@@ -20,5 +21,9 @@ namespace Warehouse.Data
         public double ActionAmount { get; set; }
 
         public double AmountAfterAction { get; set; }
+
+        public int SiloId { get; set; }
+
+        public virtual Silo Silo { get; set; }
     }
 }

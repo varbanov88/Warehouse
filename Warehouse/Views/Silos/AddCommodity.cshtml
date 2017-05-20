@@ -6,30 +6,41 @@
 
 @using (Html.BeginForm("AddCommodity", "Silos", FormMethod.Post))
 {
-    <div class="row">
-        <h2>@Model.Number . @Model.Name</h2>
-        <h3>Current Load Level: @Model.CurrentLoad</h3>
-        <h3>Maximum Capacity: @Model.MaxCapacity</h3>
-        <h3>Amount to reach capacity: @Model.CapacityLeft</h3>
-    </div>
+    <form class="form-horizontal">
+        <fieldset>
+            <legend>Import Commodity</legend>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <h2>@Model.Number. @Model.Name</h2>
+                </li>
+                <li class="list-group-item">
+                    <h4>Current Load Level: @Model.CurrentLoad tones</h4>
+                </li>
+                <li class="list-group-item">
+                    <h4>Maximum Capacity: @Model.MaxCapacity tones</h4>
+                </li>
+                <li class="list-group-item">
+                    <h4>Amount to reach capacity: @Model.CapacityLeft tones</h4>
+                </li>
+            </ul>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="container">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Commodity.Name, new { @class = "col-md-2 control-label" })
+                    @Html.TextBoxFor(m => m.Commodity.Name, new { @class = "form-control" })
+                </div>
 
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="container">
-        <div class="form-group">
-            @Html.LabelFor(m => m.Commodity.Name, new { @class = "col-md-2 control-label" })
-            @Html.TextBoxFor(m => m.Commodity.Name, new { @class = "form-control" })
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Commodity.Amount, new { @class = "col-md-2 control-label" })
+                    @Html.TextBoxFor(m => m.Commodity.Amount, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Commodity.Amount, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.Commodity.Amount, new { @class = "col-md-2 control-label" })
-            @Html.TextBoxFor(m => m.Commodity.Amount, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Commodity.Amount, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="container">
-        <a href="/Silos/All" class="btn btn-danger"><< Back</a>
-        <input type="submit" value="Add to Silo" class="btn btn-success" />
-    </div>
-
+            <div class="container">
+                <a href="/Silos/All" class="btn btn-danger">Cancel</a>
+                <input type="submit" value="Import" class="btn btn-success" />
+            </div>
+        </fieldset>
+</form>
 }

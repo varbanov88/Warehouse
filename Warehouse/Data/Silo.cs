@@ -98,6 +98,11 @@ namespace YaraTask.Data
                 throw new ArgumentException($"Capacity not enough. You can import up to {availableSpace} tones");
             }
 
+            if (commodity.Amount <= 0)
+            {
+                throw new ArgumentException("You must enter positive number");
+            }
+
             else
             {
                 var operation = new Operation
@@ -105,7 +110,8 @@ namespace YaraTask.Data
                     ActionAmount = commodity.Amount,
                     AmountAfterAction = this.CurrentLoad + commodity.Amount,
                     AmountBeforeAction = this.CurrentLoad,
-                    OperationName = "Import commodity"
+                    OperationName = "Import commodity",
+                    SiloId = this.Id
                 };
 
                 this.Operations.Add(operation);
@@ -123,7 +129,13 @@ namespace YaraTask.Data
         {
             if (this.CurrentLoad - commodity.Amount < 0)
             {
-                throw new ArgumentException("You cannot export that much");
+                var exportLimit = this.CurrentLoad;
+                throw new ArgumentException($"You can export up to {exportLimit} tones");
+            }
+
+            if (commodity.Amount <= 0)
+            {
+                throw new ArgumentException("You must enter positive number");
             }
 
             else
@@ -133,7 +145,8 @@ namespace YaraTask.Data
                     ActionAmount = commodity.Amount,
                     AmountAfterAction = this.CurrentLoad - commodity.Amount,
                     AmountBeforeAction = this.CurrentLoad,
-                    OperationName = "Export commodity"
+                    OperationName = "Export commodity",
+                    SiloId = this.Id
                 };
 
                 this.Operations.Add(operation);
