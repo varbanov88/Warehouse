@@ -20,7 +20,10 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Add Silo", "Create", "Silos")</li>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Add Silo", "Create", "Silos")</li>
+                    }
                     <li>@Html.ActionLink("Silos", "All", "Silos")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
