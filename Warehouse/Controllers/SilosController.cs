@@ -63,9 +63,15 @@ namespace YaraTask.Controllers
                     CurrentLoad = s.CurrentLoad,
                     MaxCapacity = s.MaxCapacity,
                     CapacityLeft = s.MaxCapacity - s.CurrentLoad,
-                    Commodity = new Commodity()
+                    Commodity = new Commodity(),
+                    CurrentCommodity = s.CurrentCommodity
                 })
                 .FirstOrDefault();
+
+            if (silo.CurrentCommodity == null)
+            {
+                silo.CurrentCommodity = "empty";
+            }
 
             if (silo == null)
             {
@@ -142,9 +148,15 @@ namespace YaraTask.Controllers
                     CurrentLoad = s.CurrentLoad,
                     MaxCapacity = s.MaxCapacity,
                     CapacityLeft = s.MaxCapacity - s.CurrentLoad,
-                    Commodity = new Commodity()
+                    Commodity = new Commodity(),
+                    CurrentCommodity = s.CurrentCommodity
                 })
                 .FirstOrDefault();
+
+            if (silo.CurrentCommodity == null)
+            {
+                silo.CurrentCommodity = "empty";
+            }
 
             if (silo == null)
             {
@@ -219,9 +231,18 @@ namespace YaraTask.Controllers
                     Number = s.SiloNumber,
                     Name = s.Name,
                     MaxCapacity = s.MaxCapacity,
-                    CapacityLeft = s.MaxCapacity - s.CurrentLoad
+                    CapacityLeft = s.MaxCapacity - s.CurrentLoad,
+                    CurrentCommodity = s.CurrentCommodity
                 })
                 .ToList();
+
+            foreach (var silo in silos)
+            {
+                if (silo.CurrentCommodity == null)
+                {
+                    silo.CurrentCommodity = "empty";
+                }
+            }
 
             return View(silos);
         }
@@ -247,7 +268,8 @@ namespace YaraTask.Controllers
                     ActionAmount = a.ActionAmount,
                     AmountAfterAction = a.AmountAfterAction,
                     SiloId = a.SiloId,
-                    Operator = a.OperationName
+                    Operator = a.OperationName,
+                    CommodityName = a.CommodityName
                 })
                 .ToList();
 
@@ -265,7 +287,8 @@ namespace YaraTask.Controllers
                     ActionAmount = a.ActionAmount,
                     AmountAfterAction = a.AmountAfterAction,
                     SiloId = a.SiloId,
-                    Operator = a.OperatorName
+                    Operator = a.OperatorName,
+                    CommodityName = a.CommodityName
                 })
                 .ToList();
 

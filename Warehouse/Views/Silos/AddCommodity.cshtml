@@ -14,13 +14,16 @@
                     <h2>@Model.Number. @Model.Name</h2>
                 </li>
                 <li class="list-group-item">
+                    <h4>Current commodity: @Model.CurrentCommodity</h4>
+                </li>
+                <li class="list-group-item">
                     <h4>Current Load Level: @Model.CurrentLoad tones</h4>
                 </li>
                 <li class="list-group-item">
                     <h4>Maximum Capacity: @Model.MaxCapacity tones</h4>
                 </li>
                 <li class="list-group-item">
-                    <h4>Amount to reach capacity: @Model.CapacityLeft tones</h4>
+                    <h4>You can import up to: @Model.CapacityLeft tones</h4>
                 </li>
             </ul>
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })

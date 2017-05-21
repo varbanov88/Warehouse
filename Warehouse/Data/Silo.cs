@@ -120,9 +120,10 @@ namespace YaraTask.Data
                     ActionAmount = commodity.Amount,
                     AmountAfterAction = this.CurrentLoad + commodity.Amount,
                     AmountBeforeAction = this.CurrentLoad,
-                    OperationName = "Import commodity",
+                    OperationName = "Import",
                     SiloId = this.Id,
-                    OperatorName = name
+                    OperatorName = name,
+                    CommodityName = commodity.Name.ToLower(),
                 };
 
                 this.Operations.Add(operation);
@@ -156,9 +157,10 @@ namespace YaraTask.Data
                     ActionAmount = commodity.Amount,
                     AmountAfterAction = this.CurrentLoad - commodity.Amount,
                     AmountBeforeAction = this.CurrentLoad,
-                    OperationName = "Export commodity",
+                    OperationName = "Export",
                     SiloId = this.Id, 
-                    OperatorName = name
+                    OperatorName = name,
+                    CommodityName = commodity.Name.ToLower()
                 };
 
                 this.Operations.Add(operation);

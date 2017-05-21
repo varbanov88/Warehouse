@@ -17,5 +17,7 @@ namespace Warehouse.Models.Silos
         public double CapacityLeft { get; set; }
 
         public Commodity Commodity { get; set; }
+
+        public string CurrentCommodity { get; set; }
     }
 }

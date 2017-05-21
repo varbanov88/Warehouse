@@ -8,6 +8,8 @@
 
         public string Name { get; set; }
 
+        public string CurrentCommodity { get; set; }
+
         public double MaxCapacity { get; set; }
 
         public double CapacityLeft { get; set; }

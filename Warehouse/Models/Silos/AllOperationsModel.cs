@@ -19,5 +19,7 @@ namespace Warehouse.Models.Silos
         public int SiloId { get; set; }
 
         public string Operator { get; set; }
+
+        public string CommodityName { get; set; }
     }
 }
