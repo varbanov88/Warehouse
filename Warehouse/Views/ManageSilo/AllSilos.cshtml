@@ -1,0 +1,34 @@
+﻿@model List<Warehouse.Models.Silos.AllSilosViewModel>
+
+@{
+    ViewBag.Title = "All Silos";
+}
+
+<div class="row">
+    @foreach (var silo in Model)
+    {
+        <div class="col-md-6">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <h2>@silo.Number. @silo.Name</h2>
+                </li>
+                <li class="list-group-item">
+                    <h2>Current commodity: @silo.CurrentCommodity</h2>
+                </li>
+                <li class="list-group-item">
+                    <h3>Available Capacity: @silo.CapacityLeft tones</h3>
+                </li>
+                <li class="list-group-item">
+                    <h3>Maximum Capacity: @silo.MaxCapacity tones</h3>
+                </li>
+            </ul>
+            @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                <p>
+                    <a class="btn btn-warning" href="/ManageSilo/Edit/@silo.Id">Edit</a>
+                    <a class="btn btn-danger" href="/ManageSilo/Delete/@silo.Id">Delete</a>
+                </p>
+            }
+        </div>
+    }
+</div>
