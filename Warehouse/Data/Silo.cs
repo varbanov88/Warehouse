@@ -90,7 +90,7 @@ namespace YaraTask.Data
 
         public virtual User Creator { get; set; }
 
-        public void AddCommodity(Commodity commodity)
+        public void AddCommodity(Commodity commodity, string name)
         {
             if (commodity.Amount + this.CurrentLoad > this.maxCapacity)
             {
@@ -111,7 +111,8 @@ namespace YaraTask.Data
                     AmountAfterAction = this.CurrentLoad + commodity.Amount,
                     AmountBeforeAction = this.CurrentLoad,
                     OperationName = "Import commodity",
-                    SiloId = this.Id
+                    SiloId = this.Id,
+                    OperatorName = name
                 };
 
                 this.Operations.Add(operation);
@@ -125,7 +126,7 @@ namespace YaraTask.Data
             }
         }
 
-        public void ExportCommodity(Commodity commodity)
+        public void ExportCommodity(Commodity commodity, string name)
         {
             if (this.CurrentLoad - commodity.Amount < 0)
             {
@@ -146,7 +147,8 @@ namespace YaraTask.Data
                     AmountAfterAction = this.CurrentLoad - commodity.Amount,
                     AmountBeforeAction = this.CurrentLoad,
                     OperationName = "Export commodity",
-                    SiloId = this.Id
+                    SiloId = this.Id, 
+                    OperatorName = name
                 };
 
                 this.Operations.Add(operation);

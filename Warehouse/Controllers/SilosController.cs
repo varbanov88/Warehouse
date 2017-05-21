@@ -78,13 +78,17 @@ namespace YaraTask.Controllers
                     Amount = model.Commodity.Amount
                 };
 
+                var operatorId = User.Identity.GetUserId();
+
                 var db = new WarehouseDbContext();
+
+                var operatorData = db.Users.Where(o => o.Id == operatorId).FirstOrDefault();
 
                 var silo = db.Silos.Find(model.Id);
 
                 try
                 {
-                    silo.AddCommodity(commodity);
+                    silo.AddCommodity(commodity, operatorData.FullName);
                     db.SaveChanges();
 
                     return RedirectToAction("All", "Silos");
@@ -153,13 +157,17 @@ namespace YaraTask.Controllers
                     Amount = model.Commodity.Amount
                 };
 
+                var operatorId = User.Identity.GetUserId();
+
                 var db = new WarehouseDbContext();
+
+                var operatorData = db.Users.Where(o => o.Id == operatorId).FirstOrDefault();
 
                 var silo = db.Silos.Find(model.Id);
 
                 try
                 {
-                    silo.ExportCommodity(commodity);
+                    silo.ExportCommodity(commodity, operatorData.FullName);
                     db.SaveChanges();
 
                     return RedirectToAction("All", "Silos");
@@ -229,7 +237,8 @@ namespace YaraTask.Controllers
                     OperationName = a.OperationName,
                     ActionAmount = a.ActionAmount,
                     AmountAfterAction = a.AmountAfterAction,
-                    SiloId = a.SiloId
+                    SiloId = a.SiloId,
+                    Operator = a.OperationName
                 })
                 .ToList();
 
@@ -246,7 +255,8 @@ namespace YaraTask.Controllers
                     OperationName = a.OperationName,
                     ActionAmount = a.ActionAmount,
                     AmountAfterAction = a.AmountAfterAction,
-                    SiloId = a.SiloId
+                    SiloId = a.SiloId,
+                    Operator = a.OperatorName
                 })
                 .ToList();
 

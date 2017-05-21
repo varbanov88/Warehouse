@@ -17,6 +17,8 @@ namespace Warehouse.Models
 
         public virtual ICollection<Silo> Silos { get; set; }
 
+        public string FullName { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
         {
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);

@@ -1,4 +1,5 @@
 ﻿using System;
+using Warehouse.Models;
 using YaraTask.Data;
 
 namespace Warehouse.Data
@@ -25,5 +26,7 @@ namespace Warehouse.Data
         public int SiloId { get; set; }
 
         public virtual Silo Silo { get; set; }
+
+        public string OperatorName { get; set; }
     }
 }
