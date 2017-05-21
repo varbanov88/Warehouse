@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Warehouse.Data;
 using Warehouse.Models;
+using Warehouse.Models.Silos;
 
 namespace YaraTask.Data
 {
@@ -172,5 +173,16 @@ namespace YaraTask.Data
                 }
             }
         }
+
+        public bool CanDeleteSilo(DeleteSiloModel silo)
+        {
+            if (silo.CurrentCommodity != null)
+            {
+                throw new ArithmeticException($"The Silo {silo.Name} cannot be deleted before it is empty");
+            }
+
+            return true;
+        }
+
     }
 }

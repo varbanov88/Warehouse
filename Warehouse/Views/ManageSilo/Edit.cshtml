@@ -3,15 +3,31 @@
     ViewBag.Title = "Edit Silo";
 }
 
-@Html.ValidationSummary("", new { @class = "text-danger" })
 
 @using (Html.BeginForm("Edit", "ManageSilo", FormMethod.Post))
 {
+    @Html.ValidationSummary("", new { @class = "text-danger" })
     <form class="form-horizontal">
         <fieldset>
-            <legend>Legend</legend>
-            @Html.LabelFor(m => m.Name, new { @class = "control-label col-lg-2" })
-            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+            <legend>Edit Silo</legend>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Name, new { @class = "control-label col-lg-2" })
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Number, new { @class = "control-label col-lg-2" })
+                @Html.TextBoxFor(m => m.Number, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.MaxCapacity, new { @class = "control-label col-lg-2" })
+                @Html.TextBoxFor(m => m.MaxCapacity, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                    <a href="/ManageSilo/AllSilos" class="btn btn-default">Cancel</a>
+                    <button type="submit" class="btn btn-success">Edit</button>
+                </div>
+            </div>
         </fieldset>
     </form>
 }

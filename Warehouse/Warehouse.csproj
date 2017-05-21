@@ -212,6 +212,7 @@
     <Compile Include="Models\Silos\AllOperationsModel.cs" />
     <Compile Include="Models\Silos\AllSilosViewModel.cs" />
     <Compile Include="Models\Silos\CreateSiloModel.cs" />
+    <Compile Include="Models\Silos\DeleteSiloModel.cs" />
     <Compile Include="Models\Silos\EditSiloModel.cs" />
     <Compile Include="Models\Silos\SiloViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -282,6 +283,7 @@
     <Content Include="Views\Silos\ExportCommodity.cshtml" />
     <Content Include="Views\ManageSilo\AllSilos.cshtml" />
     <Content Include="Views\ManageSilo\Edit.cshtml" />
+    <Content Include="Views\ManageSilo\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -255,9 +255,9 @@ namespace YaraTask.Controllers
 
             var db = new WarehouseDbContext();
 
-            var pasteQuery = db.Operations.AsQueryable();
+            var siloQuery = db.Operations.AsQueryable();
 
-            var totalActions = pasteQuery
+            var totalActions = siloQuery
                 .Where(a => a.SiloId == id)
                 .Select(a => new AllOperationsModel
                 {
@@ -273,7 +273,7 @@ namespace YaraTask.Controllers
                 })
                 .ToList();
 
-            var actions = pasteQuery
+            var actions = siloQuery
                 .Where(a => a.SiloId == id)
                 .OrderByDescending(a => a.ActionDate)
                 .Skip((page - 1) * pageSize)
