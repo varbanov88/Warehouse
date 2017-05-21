@@ -15,5 +15,8 @@ namespace YaraTask.Models.Silos
         [Required]
         [Range(1, 1000)]
         public int SiloNumber { get; set; }
+
+        [Display(Name = "Commodity")]
+        public string CurrentCommodity { get; set; }
     }
 }

@@ -9,8 +9,6 @@ namespace YaraTask.Data
     {
         private string name;
 
-        private Commodity commodity;
-
         private double maxCapacity;
 
         private int siloNumber;
@@ -47,6 +45,8 @@ namespace YaraTask.Data
                 this.name = value;
             }
         }
+
+        public string CurrentCommodity { get; set; }
 
         public double CurrentLoad { get; set; }
 
@@ -103,6 +103,16 @@ namespace YaraTask.Data
                 throw new ArgumentException("You must enter positive number");
             }
 
+            if (this.CurrentCommodity == null)
+            {
+                this.CurrentCommodity = commodity.Name.ToLower();
+            }
+
+            if (!this.CurrentCommodity.Equals(commodity.Name.ToLower()))
+            {
+                throw new ArgumentException($"In this silo you can import only {this.CurrentCommodity}");
+            }
+
             else
             {
                 var operation = new Operation
@@ -116,11 +126,6 @@ namespace YaraTask.Data
                 };
 
                 this.Operations.Add(operation);
-
-                if (this.commodity == null)
-                {
-                    this.commodity = commodity;
-                }
 
                 this.CurrentLoad += commodity.Amount;
             }
@@ -137,6 +142,11 @@ namespace YaraTask.Data
             if (commodity.Amount <= 0)
             {
                 throw new ArgumentException("You must enter positive number");
+            }
+
+            if (!this.CurrentCommodity.Equals(commodity.Name.ToLower()))
+            {
+                throw new ArgumentException($"There is {this.CurrentCommodity} in this silo. You cannot export other commodity");
             }
 
             else
@@ -156,7 +166,7 @@ namespace YaraTask.Data
 
                 if (this.CurrentLoad == 0)
                 {
-                    this.commodity = null;
+                    this.CurrentCommodity = null;
                 }
             }
         }

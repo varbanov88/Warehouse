@@ -29,6 +29,15 @@ namespace YaraTask.Controllers
 
                 var silo = new Silo(model.Name, model.MaxCapacity, model.SiloNumber);
                 silo.SiloCreatorId = creatorId;
+                if (model.CurrentCommodity == null)
+                {
+                    silo.CurrentCommodity = null;
+                }
+
+                else
+                {
+                    silo.CurrentCommodity = model.CurrentCommodity;
+                }
 
                 db.Silos.Add(silo);
                 db.SaveChanges();
