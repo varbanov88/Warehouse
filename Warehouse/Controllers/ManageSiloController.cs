@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using Warehouse.Data;
 using Warehouse.Models.Silos;
@@ -107,48 +106,6 @@ namespace Warehouse.Controllers
                     Name = a.Name,
                     MaxCapacity = a.MaxCapacity,
                     Number = a.SiloNumber,
-                    CurrentCommodity = a.CurrentCommodity,
-                    CurrentLoad = a.CurrentLoad,
-                    CapacityLeft = a.MaxCapacity - a.CurrentLoad
-                })
-                .FirstOrDefault();
-
-            var sillo = db.Silos.Find(id);
-
-            if (silo == null)
-            {
-                return HttpNotFound();
-            }
-
-            try
-            {
-                sillo.CanDeleteSilo(silo);
-                ViewBag.Id = silo.Id;
-                return View(silo);
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", $"{ex.Message}");
-                return RedirectToAction("AllSilos");
-            }
-        }
-
-        [Authorize]
-        [HttpPost]
-        public ActionResult Delete(DeleteSiloModel model, int id)
-        {
-            var db = new WarehouseDbContext();
-
-            var siloQuery = db.Silos.AsQueryable();
-
-            var silo = siloQuery
-                .Where(a => a.Id == id)
-                .Select(a => new DeleteSiloModel
-                {
-                    Id = id,
-                    Name = a.Name,
-                    MaxCapacity = a.MaxCapacity,
-                    Number = a.SiloNumber,
                     CurrentCommodity = a.CurrentCommodity
                 })
                 .FirstOrDefault();
@@ -158,10 +115,28 @@ namespace Warehouse.Controllers
                 return HttpNotFound();
             }
 
-            var sillo = db.Silos.Find(id);
+            return View(silo);
+        }
 
-            db.Silos.Remove(sillo);
-            var operations = db.Operations.Where(c => c.SiloId == id).ToList();
+        [Authorize]
+        [ActionName("Delete")]
+        [HttpPost]
+        public ActionResult ConfirmDelete(int id)
+        {
+            var db = new WarehouseDbContext();
+
+            var silo = db.Silos
+                .Where(a => a.Id == id)
+                .FirstOrDefault();
+
+            if (silo == null)
+            {
+                return HttpNotFound();
+            }
+
+            db.Silos.Remove(silo);
+
+            var operations = db.Operations.Where(o => o.SiloId == id).ToList();
 
             foreach (var op in operations)
             {
