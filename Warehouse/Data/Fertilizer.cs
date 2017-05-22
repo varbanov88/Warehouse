@@ -49,11 +49,6 @@ namespace Warehouse.Data
 
             set
             {
-                if (value <= 0)
-                {
-                    throw new ArgumentException("Amount must be must be more than 0");
-                }
-
                 this.amount = value;
             }
         }

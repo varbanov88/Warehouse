@@ -111,6 +111,11 @@ namespace Warehouse.Data
                 this.CurrentFertilizer = fertilizer.Name.ToLower();
             }
 
+            if (fertilizer.Amount <= 0)
+            {
+                throw new ArgumentException("Please enter positive number");
+            }
+
             var operation = new TankOperation
             {
                 ActionAmount = fertilizer.Amount,
@@ -125,6 +130,48 @@ namespace Warehouse.Data
             this.Operations.Add(operation);
 
             this.CurrentLoad += fertilizer.Amount;
+        }
+
+        public void ExportFertilizer(Fertilizer fertilizer, string name)
+        {
+            if (this.CurrentLoad - fertilizer.Amount < 0)
+            {
+                throw new ArgumentException($"You can export up to {this.CurrentLoad}");
+            }
+
+            if (!fertilizer.Name.ToLower().Equals(this.CurrentFertilizer))
+            {
+                throw new ArgumentException($"You can export {this.CurrentFertilizer}");
+            }
+
+            if (fertilizer.Amount <= 0)
+            {
+                throw new ArgumentException("Please enter positive number");
+            }
+
+            if (this.CurrentFertilizer == null)
+            {
+                throw new ArgumentException("This tank is empty. You cannot export from it.");
+            }
+
+            var operation = new TankOperation
+            {
+                ActionAmount = fertilizer.Amount,
+                AmountBeforeAction = this.CurrentLoad,
+                AmountAfterAction = this.CurrentLoad - fertilizer.Amount,
+                OperationName = "Export",
+                OperatorName = name,
+                TankId = this.Id,
+                FertilizerName = fertilizer.Name.ToLower()
+            };
+
+            this.Operations.Add(operation);
+            this.CurrentLoad -= fertilizer.Amount;
+
+            if (this.CurrentLoad == 0)
+            {
+                this.CurrentFertilizer = null;
+            }
         }
     }
 }

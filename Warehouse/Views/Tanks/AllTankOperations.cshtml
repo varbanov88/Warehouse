@@ -1,0 +1,54 @@
+﻿@model List<Warehouse.Models.Tanks.AllTankOperationsModel>
+
+@{
+    ViewBag.Title = "All Tank Operations";
+}
+
+<h2 class="text-center" mt-60>All Tank Operations - Page @ViewBag.CurrentPage</h2>
+
+<div class="row">
+    <table class="table table-striped table-hover">
+        <tr>
+            <th style="word-wrap: break-word;min-width: 80px;max-width: 80px;">Date</th>
+            <th style="word-wrap: break-word;min-width: 80px;max-width: 80px;">Operator</th>
+            <th style="word-wrap: break-word;min-width: 80px;max-width: 80px;">Operation name</th>
+            <th style="word-wrap: break-word;min-width: 80px;max-width: 80px;">Fertilizer</th>
+            <th style="word-wrap: break-word;min-width: 80px;max-width: 80px;">Amount before the operation</th>
+            <th style="word-wrap: break-word;min-width: 80px;max-width: 80px;">Operation amount</th>
+            <th style="word-wrap: break-word;min-width: 80px;max-width: 80px;">Total amount after the operation</th>
+        </tr>
+        @foreach (var action in Model)
+            {
+            <tr>
+                <td>@action.ActionDate</td>
+                <td>@action.Operator</td>
+                <td>@action.OperationName</td>
+                <td>@action.FertilizerName</td>
+                <td>@action.AmountBeforeAction</td>
+                <td>@action.ActionAmount</td>
+                <td>@action.AmountAfterAction</td>
+            </tr>
+        }
+    </table>
+</div>
+
+<div class="text-center">
+    <ul class="pagination">
+        @for (int i = 1; i <= @ViewBag.TotalPages; i++)
+        {
+            if (@i == @ViewBag.CurrentPage)
+            {
+                <li class="active"><a href="/Tanks/AllTankOperations/@ViewBag.CurrentTank?page=@i">@i</a></li>
+            }
+            else
+            {
+                <li><a href="/Tanks/AllTankOperations/@ViewBag.CurrentTank?page=@i">@i</a></li>
+            }
+        }
+    </ul>
+
+</div>
+
+<a href="/Tanks/All" class="btn btn-danger"><< Back</a>
+
+

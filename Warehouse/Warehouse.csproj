@@ -220,6 +220,7 @@
     <Compile Include="Models\Silos\DeleteSiloModel.cs" />
     <Compile Include="Models\Silos\EditSiloModel.cs" />
     <Compile Include="Models\Silos\SiloViewModel.cs" />
+    <Compile Include="Models\Tanks\AllTankOperationsModel.cs" />
     <Compile Include="Models\Tanks\AllTanksViewModel.cs" />
     <Compile Include="Models\Tanks\CreateTankModel.cs" />
     <Compile Include="Models\Tanks\TankViewModel.cs" />
@@ -295,6 +296,8 @@
     <Content Include="Views\ManageTank\Create.cshtml" />
     <Content Include="Views\Tanks\All.cshtml" />
     <Content Include="Views\Tanks\AddFertilizer.cshtml" />
+    <Content Include="Views\Tanks\ExportFertilizer.cshtml" />
+    <Content Include="Views\Tanks\AllTankOperations.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
