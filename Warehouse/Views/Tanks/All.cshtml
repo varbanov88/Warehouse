@@ -1,0 +1,33 @@
+﻿@model List<Warehouse.Models.Tanks.AllTanksViewModel>
+
+@{
+    ViewBag.Title = "All Tanks";
+}
+
+<div class="row">
+    @foreach (var tank in Model)
+    {
+        <div class="col-md-6">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <h2>@tank.Number. @tank.Name</h2>
+                </li>
+                <li class="list-group-item">
+                    <h2>Current fertilizer: @tank.CurrentFertilizer</h2>
+                </li>
+                <li class="list-group-item">
+                    <h3>Available Capacity: @tank.CapacityLeft liters</h3>
+                </li>
+                <li class="list-group-item">
+                    <h3>Maximum Capacity: @tank.MaxCapacity liters</h3>
+                </li>
+            </ul>
+            <p>
+                <a class="btn btn-success" href="/Tanks/AddFertilizer/@tank.Id">Import Fertilizer</a>
+                <a class="btn btn-warning" href="/Tanks/ExportFertilizer/@tank.Id">Export Fertilizer</a>
+                <a class="btn btn-default" href="/Tanks/AllOperations/@tank.Id">All Operations</a>
+            </p>
+        </div>
+    }
+</div>
+

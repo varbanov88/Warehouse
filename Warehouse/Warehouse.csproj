@@ -194,6 +194,7 @@
     <Compile Include="Controllers\ManageSiloController.cs" />
     <Compile Include="Controllers\ManageTankController.cs" />
     <Compile Include="Controllers\SilosController.cs" />
+    <Compile Include="Controllers\TanksController.cs" />
     <Compile Include="Data\Fertilizer.cs" />
     <Compile Include="Data\Operation.cs" />
     <Compile Include="Data\Silo.cs" />
@@ -219,7 +220,9 @@
     <Compile Include="Models\Silos\DeleteSiloModel.cs" />
     <Compile Include="Models\Silos\EditSiloModel.cs" />
     <Compile Include="Models\Silos\SiloViewModel.cs" />
+    <Compile Include="Models\Tanks\AllTanksViewModel.cs" />
     <Compile Include="Models\Tanks\CreateTankModel.cs" />
+    <Compile Include="Models\Tanks\TankViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -290,6 +293,8 @@
     <Content Include="Views\ManageSilo\Edit.cshtml" />
     <Content Include="Views\ManageSilo\Delete.cshtml" />
     <Content Include="Views\ManageTank\Create.cshtml" />
+    <Content Include="Views\Tanks\All.cshtml" />
+    <Content Include="Views\Tanks\AddFertilizer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

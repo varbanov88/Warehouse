@@ -42,7 +42,7 @@ namespace Warehouse.Controllers
                 db.Tanks.Add(tank);
                 db.SaveChanges();
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("All", "Tanks");
             }
 
             return View(model);

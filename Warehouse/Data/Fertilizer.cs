@@ -9,6 +9,11 @@ namespace Warehouse.Data
 
         private double amount;
 
+        public Fertilizer()
+        {
+
+        }
+
         public Fertilizer(string name, double amount)
         {
             this.Name = name;

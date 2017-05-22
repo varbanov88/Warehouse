@@ -1,0 +1,50 @@
+﻿@model Warehouse.Models.Tanks.TankViewModel
+
+@{
+    ViewBag.Title = "Add Fertilizer";
+}
+
+@using (Html.BeginForm("AddFertilizer", "Tanks", FormMethod.Post))
+{
+    <form class="form-horizontal">
+        <fieldset>
+            <legend>Import Fertilizer</legend>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <h2>@Model.Number. @Model.Name</h2>
+                </li>
+                <li class="list-group-item">
+                    <h4>Current fertilizer: @Model.CurrentFertilizer</h4>
+                </li>
+                <li class="list-group-item">
+                    <h4>Current Load Level: @Model.CurrentLoad liters</h4>
+                </li>
+                <li class="list-group-item">
+                    <h4>Maximum Capacity: @Model.MaxCapacity liters</h4>
+                </li>
+                <li class="list-group-item">
+                    <h4>You can import up to: @Model.CapacityLeft liters</h4>
+                </li>
+            </ul>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="container">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Fertilizer.Name, new { @class = "col-md-2 control-label" })
+                    @Html.TextBoxFor(m => m.Fertilizer.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Fertilizer.Name, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Fertilizer.Amount, new { @class = "col-md-2 control-label" })
+                    @Html.TextBoxFor(m => m.Fertilizer.Amount, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Fertilizer.Amount, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="container">
+                <a href="/Tanks/All" class="btn btn-danger">Cancel</a>
+                <input type="submit" value="Import" class="btn btn-success" />
+            </div>
+        </fieldset>
+</form>
+}
