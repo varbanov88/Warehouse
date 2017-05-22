@@ -14,9 +14,13 @@ namespace Warehouse.Data
 
         public virtual IDbSet<Silo> Silos { get; set; }
 
+        public virtual IDbSet<Tank> Tanks { get; set; }
+
         //public virtual IDbSet<Commodity> Commodities { get; set; }
 
         public virtual IDbSet<Operation> Operations { get; set; }
+
+        public virtual IDbSet<TankOperation> TankOperations { get; set; }
 
         public static WarehouseDbContext Create()
         {
