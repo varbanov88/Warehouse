@@ -176,7 +176,7 @@ namespace YaraTask.Data
 
         public bool CanDeleteSilo(DeleteSiloModel silo)
         {
-            if (silo.CurrentCommodity != null)
+            if (silo.CurrentCommodity != null || silo.CurrentLoad > 0)
             {
                 throw new ArithmeticException($"The Silo {silo.Name} cannot be deleted before it is empty");
             }

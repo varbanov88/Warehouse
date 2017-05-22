@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using Warehouse.Data;
 using Warehouse.Models.Silos;
@@ -106,7 +107,9 @@ namespace Warehouse.Controllers
                     Name = a.Name,
                     MaxCapacity = a.MaxCapacity,
                     Number = a.SiloNumber,
-                    CurrentCommodity = a.CurrentCommodity
+                    CapacityLeft = a.MaxCapacity - a.CurrentLoad,
+                    CurrentCommodity = a.CurrentCommodity,
+                    CurrentLoad = a.CurrentLoad
                 })
                 .FirstOrDefault();
 
@@ -121,30 +124,55 @@ namespace Warehouse.Controllers
         [Authorize]
         [ActionName("Delete")]
         [HttpPost]
-        public ActionResult ConfirmDelete(int id)
+        public ActionResult ConfirmDelete(int id , DeleteSiloModel model)
         {
-            var db = new WarehouseDbContext();
-
-            var silo = db.Silos
-                .Where(a => a.Id == id)
-                .FirstOrDefault();
-
-            if (silo == null)
+            if (ModelState.IsValid)
             {
-                return HttpNotFound();
+                var db = new WarehouseDbContext();
+
+                var silo = db.Silos
+                    .Where(a => a.Id == id)
+                    .FirstOrDefault();
+
+                var siloCheck = new DeleteSiloModel
+                {
+                    CurrentCommodity = silo.CurrentCommodity,
+                    CurrentLoad = silo.CurrentLoad,
+                    CapacityLeft = silo.MaxCapacity - silo.CurrentLoad,
+                    Name = silo.Name
+                };
+
+                if (silo == null)
+                {
+                    return HttpNotFound();
+                }
+
+                try
+                {
+                    silo.CanDeleteSilo(siloCheck);
+                    db.Silos.Remove(silo);
+
+                    var operations = db.Operations.Where(o => o.SiloId == id).ToList();
+
+                    foreach (var op in operations)
+                    {
+                        db.Operations.Remove(op);
+                    }
+
+                    db.SaveChanges();
+                    return RedirectToAction("AllSilos");
+
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", $"{ex.Message}");
+
+                    return View(model);
+                }
+
             }
 
-            db.Silos.Remove(silo);
-
-            var operations = db.Operations.Where(o => o.SiloId == id).ToList();
-
-            foreach (var op in operations)
-            {
-                db.Operations.Remove(op);
-            }
-
-            db.SaveChanges();
-            return RedirectToAction("AllSilos");
+            return View(model);
         }
     }
 }
