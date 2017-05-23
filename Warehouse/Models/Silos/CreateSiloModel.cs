@@ -10,10 +10,12 @@ namespace YaraTask.Models.Silos
 
         [Required]
         [Range(50, 5000)]
+        [Display(Name = "Max Capacity")]
         public double MaxCapacity { get; set; }
 
         [Required]
         [Range(1, 1000)]
+        [Display(Name = "Silo Number")]
         public int SiloNumber { get; set; }
 
         [Display(Name = "Commodity")]

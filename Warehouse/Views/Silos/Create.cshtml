@@ -4,6 +4,9 @@
     ViewBag.Title = "Add Silo";
 }
 
+<h2>Add Silo to your warehouse</h2>
+<br />
+
 @using (Html.BeginForm("Create", "Silos", FormMethod.Post))
 {
     <div class="container">
@@ -30,8 +33,8 @@
     </div>
 
     <div class="container">
-        <a href="/Home" class="btn btn-danger"><< Back</a>
-        <input type="submit" value="Save Silo" class="btn btn-primary" />
+        <a href="/Home" class="btn btn-danger">Cancel</a>
+        <input type="submit" value="Save Silo" class="btn btn-success" />
     </div>
 
 }

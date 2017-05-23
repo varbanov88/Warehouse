@@ -13,6 +13,7 @@ namespace Warehouse.Models.Silos
         public int Number { get; set; }
 
         [Required(ErrorMessage = "You must define silo capacity")]
+        [Display(Name = "Max Capacity")]
         public double MaxCapacity { get; set; }
     }
 }

@@ -13,6 +13,7 @@ namespace Warehouse.Models.Tanks
         public int Number { get; set; }
 
         [Required(ErrorMessage = "You must define tank capacity")]
+        [Display(Name = "Max Capacity")]
         public double MaxCapacity { get; set; }
     }
 }

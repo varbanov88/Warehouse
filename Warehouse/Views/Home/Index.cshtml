@@ -2,7 +2,6 @@
     ViewBag.Title = "Home Page";
 }
 
-
 <div id="myCarousel" class="carousel slide">
     <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -25,4 +24,33 @@
         <span class="icon-next"></span>
     </a>
 </div>
+<br />
+<div class="row">
+    <div class="col-lg-6">
+        <div class="bs-component">
+            <blockquote>
+                <p>In the Silos/Tanks view you get information about all silos/tanks in the warehouse. You also have the following functions:</p>
+                <ul>
+                    <li>Import Commodity</li>
+                    <li>Export Commodity</li>
+                    <li>See all operations history</li>
+                </ul>
+                <a href="/Silos/All" class="btn btn-default">See Silos</a>
+                <a href="/Tanks/All" class="btn btn-primary">See Tanks</a>
+            </blockquote>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="bs-component">
+            <blockquote class="blockquote-reverse">
+                <p>If you are Admin user, you can easily manage your warehouse using the following functions:</p>
 
+                <p>- Add Silo/Tank</p>
+                <p>- Edit Silo/Tank</p>
+                <p>- Delete Silo/Tank</p>
+
+                <a href="/Silos/All" class="btn btn-success">Register</a>
+            </blockquote>
+        </div>
+    </div>
+</div>

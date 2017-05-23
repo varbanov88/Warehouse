@@ -122,7 +122,8 @@ namespace YaraTask.Controllers
                                         CurrentLoad = s.CurrentLoad,
                                         MaxCapacity = s.MaxCapacity,
                                         CapacityLeft = s.MaxCapacity - s.CurrentLoad,
-                                        Commodity = new Commodity()
+                                        Commodity = new Commodity(),
+                                        CurrentCommodity = s.CurrentCommodity
                                     })
                                     .FirstOrDefault();
 
@@ -207,7 +208,8 @@ namespace YaraTask.Controllers
                                         CurrentLoad = s.CurrentLoad,
                                         MaxCapacity = s.MaxCapacity,
                                         CapacityLeft = s.MaxCapacity - s.CurrentLoad,
-                                        Commodity = new Commodity()
+                                        Commodity = new Commodity(),
+                                        CurrentCommodity = s.CurrentCommodity
                                     })
                                     .FirstOrDefault();
 

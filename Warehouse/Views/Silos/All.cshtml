@@ -5,28 +5,30 @@
 }
 
 <div class="row">
+    <h2 style="text-align: center">All Silos</h2>
+</div>
+
+<div class="row">
     @foreach (var silo in Model)
     {
         <div class="col-md-6">
             <ul class="list-group">
-                <li class="list-group-item">
+                <li class="list-group-item active">
                     <h2>@silo.Number. @silo.Name</h2>
                 </li>
                 <li class="list-group-item">
                     <h2>Current commodity: @silo.CurrentCommodity</h2>
-                </li>
-                <li class="list-group-item">
                     <h3>Available Capacity: @silo.CapacityLeft tones</h3>
-                </li>
-                <li class="list-group-item">
                     <h3>Maximum Capacity: @silo.MaxCapacity tones</h3>
                 </li>
+                <li class="list-group-item">
+                    <p>
+                        <a class="btn btn-success" href="/Silos/AddCommodity/@silo.Id">Import Commodity</a>
+                        <a class="btn btn-warning" href="/Silos/ExportCommodity/@silo.Id">Export Commodity</a>
+                        <a class="btn btn-default" href="/Silos/AllOperations/@silo.Id">All Operations</a>
+                    </p>
+                </li>
             </ul>
-            <p>
-                <a class="btn btn-success" href="/Silos/AddCommodity/@silo.Id">Import Commodity</a>
-                <a class="btn btn-warning" href="/Silos/ExportCommodity/@silo.Id">Export Commodity</a>
-                <a class="btn btn-default" href="/Silos/AllOperations/@silo.Id">All Operations</a>
-            </p>
         </div>
     }
 </div>

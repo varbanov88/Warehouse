@@ -3,6 +3,9 @@
     ViewBag.Title = "Add Tanker";
 }
 
+<h2>Add Tank to your warehouse</h2>
+<br />
+
 @using (Html.BeginForm("Create", "ManageTank", FormMethod.Post))
 {
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -30,8 +33,8 @@
     </div>
 
     <div class="container">
-        <a href="/Home" class="btn btn-default">Cancel</a>
-        <input type="submit" value="Save Tank" class="btn btn-primary" />
+        <a href="/Home" class="btn btn-danger">Cancel</a>
+        <input type="submit" value="Save Tank" class="btn btn-success" />
     </div>
 
 }

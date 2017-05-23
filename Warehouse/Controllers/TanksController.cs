@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Warehouse.Data;
 using Warehouse.Models.Tanks;
@@ -113,7 +111,8 @@ namespace Warehouse.Controllers
                                         CurrentLoad = t.CurrentLoad,
                                         MaxCapacity = t.MaxCapacity,
                                         CapacityLeft = t.MaxCapacity - t.CurrentLoad,
-                                        Fertilizer = new Fertilizer()
+                                        Fertilizer = new Fertilizer(),
+                                        CurrentFertilizer = t.CurrentFertilizer
                                     })
                                     .FirstOrDefault();
 

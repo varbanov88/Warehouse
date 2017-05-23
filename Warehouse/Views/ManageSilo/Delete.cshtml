@@ -3,7 +3,8 @@
         ViewBag.Title = "Delete Silo";
     }
 
-    <h2>Delete Silo</h2>
+<h2>Delete Silo</h2>
+
     @using (Html.BeginForm("Delete", "ManageSilo", FormMethod.Post, new { @class = "form-horizontal" }))
     {
         @Html.AntiForgeryToken()
@@ -17,25 +18,25 @@
         <div class="form-group">
             @Html.LabelFor(m => m.CurrentLoad, new { @class = "control-label col-sm-4" })
             <div class="col-sm-4">
-                @Html.TextAreaFor(m => m.CurrentLoad, new { @class = "form-control", @readonly = "readonly"})
+                @Html.TextBoxFor(m => m.CurrentLoad, new { @class = "form-control", @readonly = "readonly"})
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(m => m.MaxCapacity, new { @class = "control-label col-sm-4" })
             <div class="col-sm-4">
-                @Html.TextAreaFor(m => m.MaxCapacity, new { @class = "form-control", @readonly = "readonly"})
+                @Html.TextBoxFor(m => m.MaxCapacity, new { @class = "form-control", @readonly = "readonly"})
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(m => m.CapacityLeft, new { @class = "control-label col-sm-4" })
             <div class="col-sm-4">
-                @Html.TextAreaFor(m => m.CapacityLeft, new { @class = "form-control", @readonly = "readonly"})
+                @Html.TextBoxFor(m => m.CapacityLeft, new { @class = "form-control", @readonly = "readonly"})
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(m => m.CurrentCommodity, new { @class = "control-label col-sm-4" })
             <div class="col-sm-4">
-                @Html.TextAreaFor(m => m.CurrentCommodity, new { @class = "form-control", @readonly = "readonly"})
+                @Html.TextBoxFor(m => m.CurrentCommodity, new { @class = "form-control", @readonly = "readonly"})
             </div>
         </div>
 
@@ -47,3 +48,4 @@
                 </div>
             </div>
     }
+
