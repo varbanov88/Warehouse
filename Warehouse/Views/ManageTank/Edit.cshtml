@@ -1,0 +1,33 @@
+﻿@model Warehouse.Models.Tanks.EditTankModel
+@{
+    ViewBag.Title = "Edit Tank";
+}
+
+
+@using (Html.BeginForm("Edit", "ManageTank", FormMethod.Post))
+{
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <form class="form-horizontal">
+        <fieldset>
+            <legend>Edit Tank</legend>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Name, new { @class = "control-label col-lg-2" })
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Number, new { @class = "control-label col-lg-2" })
+                @Html.TextBoxFor(m => m.Number, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.MaxCapacity, new { @class = "control-label col-lg-2" })
+                @Html.TextBoxFor(m => m.MaxCapacity, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                    <a href="/ManageTank/AllTanks" class="btn btn-default">Cancel</a>
+                    <button type="submit" class="btn btn-success">Edit</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+}

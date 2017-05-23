@@ -1,0 +1,34 @@
+﻿@model List<Warehouse.Models.Tanks.AllTanksViewModel>
+
+@{
+    ViewBag.Title = "All Tanks";
+}
+
+<div class="row">
+    @foreach (var tank in Model)
+    {
+        <div class="col-md-6">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <h2>@tank.Number. @tank.Name</h2>
+                </li>
+                <li class="list-group-item">
+                    <h2>Current commodity: @tank.CurrentFertilizer</h2>
+                </li>
+                <li class="list-group-item">
+                    <h3>Available Capacity: @tank.CapacityLeft liters</h3>
+                </li>
+                <li class="list-group-item">
+                    <h3>Maximum Capacity: @tank.MaxCapacity liters</h3>
+                </li>
+            </ul>
+            @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                <p>
+                    <a class="btn btn-warning" href="/ManageTank/Edit/@tank.Id">Edit</a>
+                    <a class="btn btn-danger" href="/ManageTank/Delete/@tank.Id">Delete</a>
+                </p>
+            }
+        </div>
+    }
+</div>

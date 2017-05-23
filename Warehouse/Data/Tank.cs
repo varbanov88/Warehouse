@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Warehouse.Models;
+using Warehouse.Models.Tanks;
 
 namespace Warehouse.Data
 {
@@ -172,6 +173,16 @@ namespace Warehouse.Data
             {
                 this.CurrentFertilizer = null;
             }
+        }
+
+        public bool CanDelete(DeleteTankModel tank)
+        {
+            if (tank.CurrentFertilizer != null || tank.CurrentLoad > 0)
+            {
+                throw new ArgumentException("You cannot delete this tank before it is empty");
+            }
+
+            return true;
         }
     }
 }

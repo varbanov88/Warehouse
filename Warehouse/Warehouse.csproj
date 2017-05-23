@@ -223,6 +223,8 @@
     <Compile Include="Models\Tanks\AllTankOperationsModel.cs" />
     <Compile Include="Models\Tanks\AllTanksViewModel.cs" />
     <Compile Include="Models\Tanks\CreateTankModel.cs" />
+    <Compile Include="Models\Tanks\DeleteTankModel.cs" />
+    <Compile Include="Models\Tanks\EditTankModel.cs" />
     <Compile Include="Models\Tanks\TankViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -298,6 +300,9 @@
     <Content Include="Views\Tanks\AddFertilizer.cshtml" />
     <Content Include="Views\Tanks\ExportFertilizer.cshtml" />
     <Content Include="Views\Tanks\AllTankOperations.cshtml" />
+    <Content Include="Views\ManageTank\AllTanks.cshtml" />
+    <Content Include="Views\ManageTank\Edit.cshtml" />
+    <Content Include="Views\ManageTank\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

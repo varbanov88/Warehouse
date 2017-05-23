@@ -15,6 +15,5 @@
         public double CapacityLeft { get; set; }
 
         public string CurrentCommodity { get; set; }
-
     }
 }

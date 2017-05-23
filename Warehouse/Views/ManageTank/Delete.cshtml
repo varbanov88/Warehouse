@@ -1,0 +1,49 @@
+﻿@model Warehouse.Models.Tanks.DeleteTankModel
+    @{
+        ViewBag.Title = "Delete Tank";
+    }
+
+    <h2>Delete Silo</h2>
+    @using (Html.BeginForm("Delete", "ManageTank", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.Number, new { @class = "control-label col-sm-4" })
+            <div class="col-sm-4">
+                @Html.TextBoxFor(m => m.Number, new { @class = "form-control", @readonly = "readonly" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.CurrentLoad, new { @class = "control-label col-sm-4" })
+            <div class="col-sm-4">
+                @Html.TextAreaFor(m => m.CurrentLoad, new { @class = "form-control", @readonly = "readonly"})
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.MaxCapacity, new { @class = "control-label col-sm-4" })
+            <div class="col-sm-4">
+                @Html.TextAreaFor(m => m.MaxCapacity, new { @class = "form-control", @readonly = "readonly"})
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.CapacityLeft, new { @class = "control-label col-sm-4" })
+            <div class="col-sm-4">
+                @Html.TextAreaFor(m => m.CapacityLeft, new { @class = "form-control", @readonly = "readonly"})
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.CurrentFertilizer, new { @class = "control-label col-sm-4" })
+            <div class="col-sm-4">
+                @Html.TextAreaFor(m => m.CurrentFertilizer, new { @class = "form-control", @readonly = "readonly"})
+            </div>
+        </div>
+
+
+            <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <a href="/ManageTank/AllTanks" class="btn btn-default">Cancel</a>
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                </div>
+            </div>
+    }
