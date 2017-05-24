@@ -21,8 +21,8 @@ namespace YaraTask.Data
         }
 
         public Silo(string name, double maxCapacity, int siloNumber)
+            : this()
         {
-            this.Operations = new List<Operation>();
             this.Name = name;
             this.MaxCapacity = maxCapacity;
             this.SiloNumber = siloNumber;
